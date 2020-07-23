@@ -1,0 +1,139 @@
+
+<html lang="es">
+   <head>
+      <meta charset="utf-8"></head>
+      <style>
+         html, body {
+            background-color: #ffffff;
+            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            color: #000;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-font-smoothing: grayscale;
+            margin: 0;
+            padding: 20px;
+         }
+         .line {
+            width: 100%;
+            height: 3px;
+            background: #00F260;
+            background: -webkit-linear-gradient(to right, #0575E6, #00F260);
+            background: linear-gradient(to right, #0575E6, #00F260);
+            border-radius: 3px;
+            margin-bottom: 10px;
+         }
+         header {
+            display: flex;
+            justify-content: space-between;
+         }
+         header > .headline > h1 {
+            margin: 0;
+         }
+
+         header > .headline > div {
+            font-style: oblique;
+            color: #666;
+         }
+         header > .logo {
+            width: 100px;
+            height: 50px;
+            background-image: url(https://www.essbio.cl/essbio_inc/img/covid19/logo-essbio.png);
+            background-position: center;
+            background-size: 100%;
+            background-repeat: no-repeat;
+         }
+         table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+         }
+         td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+         }
+         th, td.title {
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+         }
+         td.title.alert-row {
+            background: #e8c43670;
+         }
+         td.title.deficit-row {
+            background: #e8363670;
+         }
+         .legend {
+            background: #ffef004f;
+            padding: 1em;
+            border: 1px dashed #cecdc0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+         }
+         .legend-square {
+            padding: .7em 2em;
+            border-radius: 999999px;
+            color: white;
+            font-weight: 600;
+         }
+         .legend-square.deficit {
+            background-color: #b33a3a;
+         }
+         .legend-square.alerta {
+            background-color: #b3a03a;
+         }
+         #mapid {width: 1080px; height: 800px; }
+      </style>
+   </head>
+   <body>
+      <div class="line"></div>
+      <header>
+         <div class="headline">
+            <h1>Reporte de alertas</h1>
+            <div>Estación: dga_00000</div>
+         </div>
+         <div class="logo"></div>
+      </header>
+      <hr />
+      <table>
+         
+
+         <tr>
+            <th>Estado</th>
+            <th>Estación</th>
+            <th>Prec. acum. a la fecha</th>
+            <th>Prec. acum. 2019</th>
+            <th> Diferencia </th>
+         </tr>
+
+         {% for rows in dataAlert %}
+           <tr>
+                {% for row in rows %}
+                    <td>{{ row }}</td>
+                {% endfor %}
+           </tr>
+         {% endfor %}
+
+         {% for rows in dataDeficit %}
+           <tr>
+                {% for row in rows %}
+                    <td>{{ row }}</td>
+                {% endfor %}
+           </tr>
+         {% endfor %}
+
+
+      </table>
+      <hr />
+      <h1>Mapa de visualización</h1>
+      <img src="{{url_for('static', filename='map.png')}}" id="mapid" />
+      <h2>Leyenda</h2>
+      <div class="legend">
+         <div class="legend-square deficit">Déficit</div>
+         <div class="legend-square alerta">Alerta</div>
+      </div>
+   </body>
+</html>
+
