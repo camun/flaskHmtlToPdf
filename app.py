@@ -29,9 +29,10 @@ def index():
 	return render_template('index.html',dataAlert=dataAlert,dataDeficit=dataDeficit,img_path=img_path)
 
 
-@app.route('/leaft')
-def leaft():
-	return render_template('leaft.html')
+@app.route('/mapa')
+def mapa():
+	datos = []
+	return render_template('mapa.html',datos=datos)
 
 
 
@@ -39,7 +40,10 @@ def leaft():
 def konversi():
 	img_path = "http://localhost:5000/static/map.png"
 
-	## render html and save
+	result = os.system("phantomjs generateImage.js")
+	print(result)
+
+	## generar vista mapa
 	f = open("templates/index2.html", "w")
 	f.write(render_template('index.html', dataAlert=dataAlert,dataDeficit=dataDeficit,img_path=img_path))
 	f.close()
